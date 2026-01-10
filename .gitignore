@@ -16,3 +16,6 @@ __pycache__/
 
 # Model files (nanti)
 model/*.pkl
+
+# PyCharm
+.idea/
