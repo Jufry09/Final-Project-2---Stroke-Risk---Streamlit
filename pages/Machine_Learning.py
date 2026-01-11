@@ -104,8 +104,8 @@ st.write(
 )
 
 conf_matrix = np.array([
-    [964, 6],
-    [2, 28]
+    [559, 24],
+    [2, 387]
 ])
 
 fig, ax = plt.subplots()
