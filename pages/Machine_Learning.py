@@ -110,7 +110,10 @@ conf_matrix = np.array([
 
 fig, ax = plt.subplots()
 
-im = ax.imshow(conf_matrix)
+from matplotlib.colors import ListedColormap
+
+cmap = ListedColormap(['#FF6B6B', '#FFD93D', '#6BCB77'])  # merah → kuning → hijau
+im = ax.imshow(conf_matrix, cmap=cmap)
 
 for i in range(conf_matrix.shape[0]):
     for j in range(conf_matrix.shape[1]):
