@@ -87,8 +87,10 @@ The Streamlit application consists of several pages:
 	•	Prediction: Allows users to input individual health data and receive an estimated stroke risk probability
 	•	About: Describes the background, objectives, dataset, and ethical considerations of the project
 
-Project Structure
+⸻
 
+Project Structure
+```
 stroke-risk-streamlit/
 │
 ├── app.py
@@ -101,11 +103,12 @@ stroke-risk-streamlit/
 │
 └── pages/
     ├── About.py
+    ├── Contact.py
     ├── Dashboard.py
     ├── Visualisasi.py
     ├── Machine_Learning.py
     └── Prediction.py
-
+```
 
 Ethical Considerations
 
