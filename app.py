@@ -16,7 +16,7 @@ st.write(
     Aplikasi ini bertujuan untuk membantu **memprediksi risiko stroke**
     berdasarkan data kesehatan pengguna menggunakan **Machine Learning**.
 
-    ⚠️ **Disclaimer:**  
+    **Disclaimer:**  
     Aplikasi ini hanya untuk tujuan edukasi dan **bukan pengganti diagnosis medis**.
     
     """
@@ -29,7 +29,8 @@ st.sidebar.info(
     Gunakan menu di sidebar untuk berpindah halaman:
 
     - About  
-    - Kontak  
+    - Contact
+    - Dashboard  
     - Machine Learning  
     - Prediction  
     - Visualisasi  
