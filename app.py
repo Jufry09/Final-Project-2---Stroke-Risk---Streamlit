@@ -35,11 +35,11 @@ st.sidebar.info(
     Gunakan menu di sidebar untuk berpindah halaman:
 
     - About  
-    - Contact
-    - Dashboard  
-    - Machine Learning  
-    - Prediction  
     - Visualisasi  
+    - Machine Learning  
+    - Dashboard  
+    - Prediction  
+    - Contact  
     """
 )
 
