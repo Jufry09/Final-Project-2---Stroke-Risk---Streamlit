@@ -31,10 +31,23 @@ st.subheader("Distribusi Kasus Stroke")
 stroke_counts = df["stroke"].value_counts()
 
 fig, ax = plt.subplots()
-ax.bar(
+bars = ax.bar(
     ["Tidak Stroke", "Stroke"],
     stroke_counts.values
 )
+
+# Tambahkan angka di atas setiap batang
+for bar in bars:
+    height = bar.get_height()
+    ax.text(
+        bar.get_x() + bar.get_width()/2,  # posisi horizontal di tengah batang
+        height + 2,                        # posisi vertikal sedikit di atas batang
+        str(height),                        # teks yang ditampilkan
+        ha='center',                        # horizontal alignment
+        va='bottom',                        # vertical alignment
+        fontsize=12
+    )
+
 ax.set_ylabel("Jumlah Individu")
 ax.set_title("Perbandingan Kasus Stroke dan Non-Stroke")
 
