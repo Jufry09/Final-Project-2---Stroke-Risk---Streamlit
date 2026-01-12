@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 
-# ======================================================
 # Konfigurasi halaman
-# ======================================================
+# ====================
 st.set_page_config(page_title="Prediksi Risiko Stroke", layout="centered")
 
 st.title("Prediksi Risiko Stroke")
@@ -19,7 +18,7 @@ st.write(
     """
 )
 
-# ======================================================
+
 # Load model dan scaler (hasil training FINAL)
 # ======================================================
 MODEL_PATH = "models/final_model.pkl"
@@ -28,9 +27,9 @@ SCALER_PATH = "models/scaler.pkl"
 rf_model = joblib.load(MODEL_PATH)
 scaler = joblib.load(SCALER_PATH)
 
-# ======================================================
+
 # Input data pengguna
-# ======================================================
+# ===================
 st.subheader("Masukkan Data Kesehatan")
 
 age = st.number_input("Usia", min_value=1, max_value=120, value=40)
@@ -53,9 +52,8 @@ work_type = st.selectbox(
 )
 residence_type = st.selectbox("Tipe Tempat Tinggal", ["Urban", "Rural"])
 
-# ======================================================
 # Encoding input (KONSISTEN dengan preprocessing)
-# ======================================================
+# ===============================================
 gender_encoded = 1 if gender == "Laki-laki" else 0
 
 hypertension_encoded = 1 if hypertension == "Ya" else 0
@@ -82,9 +80,8 @@ work_type_encoded = work_type_mapping[work_type]
 
 residence_type_encoded = 1 if residence_type == "Urban" else 0
 
-# ======================================================
 # Membentuk DataFrame input
-# ======================================================
+# ========================
 input_df = pd.DataFrame(
     [[
         age,
@@ -112,9 +109,9 @@ input_df = pd.DataFrame(
     ]
 )
 
-# ======================================================
+
 # Scaling fitur numerik (SESUAI TRAINING)
-# ======================================================
+# =======================================
 
 # Ambil nama fitur numerik langsung dari scaler saat training
 scaler_features = list(scaler.feature_names_in_)
@@ -124,27 +121,41 @@ input_df[scaler_features] = scaler.transform(
     input_df[scaler_features]
 )
 
-# ======================================================
+
 # Menyesuaikan urutan fitur dengan model
-# ======================================================
+# ======================================
 final_input = input_df[rf_model.feature_names_in_]
 
-# ======================================================
+
 # Prediksi
-# ======================================================
+#==========
 if st.button("Prediksi Risiko Stroke"):
     prediction = rf_model.predict(final_input)[0]
     probability = rf_model.predict_proba(final_input)[0][1]
 
     st.subheader("Hasil Prediksi")
 
+    # Tentukan warna berdasarkan hasil prediksi
     if prediction == 1:
-        st.error("Risiko Stroke: TINGGI")
+        color = "red"
+        risk_text = "TINGGI"
     else:
-        st.success("Risiko Stroke: RENDAH")
+        color = "green"
+        risk_text = "RENDAH"
 
-    st.write(f"Probabilitas Stroke: {probability:.2%}")
+    # Menampilkan hasil prediksi dengan ukuran font besar
+    st.markdown(
+        f"<h2 style='color:{color};'>Risiko Stroke: {risk_text}</h2>",
+        unsafe_allow_html=True
+    )
 
+    # Menampilkan probabilitas dengan ukuran font sama
+    st.markdown(
+        f"<h3 style='color:{color};'>Probabilitas Stroke: {probability:.2%}</h3>",
+        unsafe_allow_html=True
+    )
+
+    # Catatan edukatif
     st.info(
         """
         Catatan:
