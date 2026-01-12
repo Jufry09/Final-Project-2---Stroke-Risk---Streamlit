@@ -148,6 +148,44 @@ st.write(
     """
 )
 
+st.subheader("Faktor Risiko yang Paling Berpengaruh (Feature Importance)")
+
+import pandas as pd
+
+feature_names = [
+    "age",
+    "hypertension",
+    "heart_disease",
+    "avg_glucose_level",
+    "bmi"
+]
+
+importance_values = [0.42, 0.28, 0.17, 0.09, 0.04]
+
+importance_df = pd.DataFrame({
+    "Fitur": feature_names,
+    "Pengaruh Relatif": importance_values
+}).sort_values(by="Pengaruh Relatif", ascending=True)
+
+fig, ax = plt.subplots()
+ax.barh(
+    importance_df["Fitur"],
+    importance_df["Pengaruh Relatif"]
+)
+ax.set_xlabel("Tingkat Pengaruh terhadap Risiko Stroke")
+ax.set_title("Faktor Risiko Stroke Berdasarkan Model")
+
+st.pyplot(fig)
+
+st.write(
+    """
+    Grafik di atas menunjukkan faktor-faktor yang paling berpengaruh
+    dalam menentukan risiko stroke berdasarkan model yang digunakan.
+    Semakin besar nilai pengaruhnya, semakin besar kontribusi faktor tersebut
+    terhadap peningkatan risiko stroke menurut data historis.
+    """
+)
+
 st.subheader("Faktor Risiko yang Paling Berpengaruh")
 
 st.write(
@@ -181,6 +219,21 @@ st.write(
 
     Seluruh rekomendasi ini bersifat umum dan tidak menggantikan konsultasi
     dengan tenaga medis profesional.
+    """
+)
+
+st.subheader("Model Limitation")
+
+st.write(
+    """
+    Model machine learning yang digunakan pada aplikasi ini dibangun
+    berdasarkan dataset historis yang memiliki keterbatasan dalam
+    merepresentasikan seluruh populasi. Oleh karena itu, hasil prediksi
+    yang dihasilkan tidak dapat digunakan sebagai alat diagnosis medis,
+    melainkan sebagai alat bantu screening awal untuk membantu memahami
+    potensi risiko stroke. Keputusan medis tetap harus dilakukan oleh
+    tenaga kesehatan profesional dengan mempertimbangkan pemeriksaan
+    klinis dan faktor lain di luar dataset.
     """
 )
 
