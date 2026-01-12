@@ -1,4 +1,5 @@
 import streamlit as st
+from PIL import Image
 
 # Konfigurasi Halaman
 
@@ -21,6 +22,11 @@ st.write(
     
     """
 )
+
+# Menampilkan gambar lokal
+image = Image.open("images/stroke.jpg")  # Ganti path sesuai lokasi gambar
+st.image(image, caption="Ilustrasi Stroke", width=1000)
+
 
 #Sidebar
 st.sidebar.title("Navigasi")
