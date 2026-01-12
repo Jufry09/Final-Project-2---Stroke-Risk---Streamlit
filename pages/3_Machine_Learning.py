@@ -48,14 +48,20 @@ st.subheader("2. Model yang digunakan")
 
 st.write(
     """
-    Model final yang digunakan adalah:
-    **Random Forest Classifier**
-    
-    Alasan pemilihan model:
+    Pada tahap awal, **Logistic Regression** digunakan sebagai baseline model.
+    Baseline ini bertujuan untuk memberikan gambaran performa awal serta
+    memudahkan interpretasi hasil pada kasus klasifikasi biner seperti
+    prediksi risiko stroke.
+
+    Setelah dilakukan evaluasi dan perbandingan dengan model non-linear,
+    **Random Forest Classifier** dipilih sebagai model final karena:
      - Mampu menangkap hubungan non-linear antar fitur
-     - Performa lebih baik dibandingkan baseline Logistic Regression
-     - Stabil berdasarkan evaluasi cross-validation
-     - Memiliki recall tinggi, sesuai untuk konteks kasus medis
+     - Memberikan performa yang lebih baik dibandingkan baseline
+     - Memiliki nilai recall yang tinggi untuk kelas stroke
+     - Menunjukkan hasil yang stabil berdasarkan cross-validation
+
+    Model Random Forest inilah yang digunakan pada aplikasi Streamlit
+    untuk melakukan prediksi risiko stroke.
     """
 )
 
