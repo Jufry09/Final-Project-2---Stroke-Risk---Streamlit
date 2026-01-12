@@ -7,6 +7,37 @@ import matplotlib.pyplot as plt
 DATA_PATH = "data/stroke_cleaned.csv"
 df = pd.read_csv(DATA_PATH)
 
+# Dashboard Filters
+# ==================
+st.sidebar.subheader("Filter Data")
+
+selected_gender = st.sidebar.selectbox(
+    "Gender",
+    options=["All", "Male", "Female"]
+)
+
+selected_hypertension = st.sidebar.selectbox(
+    "Hipertensi",
+    options=["All", "Yes", "No"]
+)
+
+filtered_df = df.copy()
+
+if selected_gender != "All":
+    if filtered_df["gender"].dtype == object:
+        filtered_df = filtered_df[filtered_df["gender"] == selected_gender]
+    else:
+        gender_map = {"Male": 1, "Female": 0}
+        filtered_df = filtered_df[filtered_df["gender"] == gender_map[selected_gender]]
+
+if selected_hypertension != "All":
+    if filtered_df["hypertension"].dtype == object:
+        filtered_df = filtered_df[filtered_df["hypertension"] == selected_hypertension]
+    else:
+        hyper_map = {"Yes": 1, "No": 0}
+        filtered_df = filtered_df[filtered_df["hypertension"] == hyper_map[selected_hypertension]]
+
+
 st.markdown(
     """
     <style>
@@ -34,10 +65,13 @@ st.markdown(
 
 st.subheader("Ringkasan Utama Data")
 
-total_data = len(df)
-total_stroke = df["stroke"].sum()
-stroke_percentage = (total_stroke / total_data) * 100
-avg_age_stroke = df[df["stroke"] == 1]["age"].mean()
+total_data = len(filtered_df)
+total_stroke = filtered_df["stroke"].sum()
+stroke_percentage = (total_stroke / total_data) * 100 if total_data > 0 else 0
+avg_age_stroke = (
+    filtered_df[filtered_df["stroke"] == 1]["age"].mean()
+    if total_stroke > 0 else 0
+)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -84,6 +118,10 @@ with col4:
         """,
         unsafe_allow_html=True
     )
+
+if total_data == 0:
+    st.warning("Tidak ada data yang sesuai dengan filter yang dipilih.")
+    st.stop()
 
 # Donut chart section update
 fig, ax = plt.subplots(facecolor="#1f2933")
